@@ -1,8 +1,19 @@
-FROM tomcat:7.0.61-jre8
+FROM java:8
 
-COPY *.amp /alfresco
+RUN apt-get update
+#RUN apt-get install -y wget
+RUN apt-get install -y supervisor
 
-COPY install.sh /install.sh
-RUN chmod 755 /install.sh
+COPY install.sh /tmp/install.sh
+RUN chmod 755 /tmp/install.sh
+RUN /tmp/install.sh
 
-RUN /install.sh
+COPY init.sh /alfresco/init.sh
+RUN chmod 755 /alfresco/init.sh
+
+VOLUME /alfresco/alf_data
+VOLUME /alfresco/tomcat/logs
+
+EXPOSE 21 137 138 139 445 7070 8080
+WORKDIR /alfresco
+CMD /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n
