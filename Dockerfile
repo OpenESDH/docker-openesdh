@@ -1,5 +1,8 @@
 FROM opene/alfresco:5.0.d
 
+COPY annotations-*.amp /alfresco/amps/
+COPY webscripts-*.amp /alfresco/amps/
+COPY office-repo-*.amp /alfresco/amps/
 COPY *-repo*.amp /alfresco/amps/
 COPY *-share*.amp /alfresco/amps_share/
 
