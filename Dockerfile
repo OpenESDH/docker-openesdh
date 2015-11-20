@@ -17,6 +17,7 @@ RUN (yes | /alfresco/bin/apply_amps.sh -force)
 #COPY office-repo*.amp /alfresco/amps/
 COPY simple-case-repo*.amp /alfresco/amps/
 COPY staff-repo*.amp /alfresco/amps/
+COPY addo-repo*.amp /alfresco/amps/
 RUN (yes | /alfresco/bin/apply_amps.sh -force)
 
 # no share amps required any more
