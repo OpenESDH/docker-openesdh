@@ -5,6 +5,7 @@ mkdir -p /tmp/opene_updates/opene_ui
 
 cat > /tmp/opene_updates/opene_ui/update_openeui.sh << EOF
 cd /OpeneUI
+git pull https://github.com/OpenESDH/OpenESDH-UI.git
 npm install
 bower update --allow-root | xargs echo
 gulp all-modules-install
@@ -35,12 +36,25 @@ cd /etc/apache2/sites-enabled
 rm -f *.conf
 cat > ./000-default.conf << EOF
 <VirtualHost *:80>
-        ServerAdmin webmaster@localhost
+        ProxyPreserveHost On
         DocumentRoot /OpeneUI
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
+        ProxyPass       /alfresco/opene/cases/  http://localhost:7070/alfresco/opene/cases/
+        ProxyPass       /alfresco/  http://localhost:8080/alfresco/
+        ProxyPassReverse /alfresco/opene/cases/  http://localhost:7070/alfresco/opene/cases/
+        ProxyPassReverse /alfresco/  http://localhost:8080/alfresco/
 </VirtualHost>
 EOF
+
+a2enmod proxy
+a2enmod proxy_ajp
+a2enmod proxy_http
+a2enmod rewrite
+a2enmod deflate
+a2enmod headers
+a2enmod proxy_balancer
+a2enmod proxy_connect
 
 #KLE properties
 cat > /alfresco/tomcat/shared/classes/alfresco-global.properties << EOF
@@ -65,13 +79,3 @@ cat > /etc/supervisor/conf.d/apache2.conf << EOF
 [program:apache2]
 command=/bin/bash -c "/etc/init.d/apache2 start"
 EOF
-
-#cat > /etc/supervisor/conf.d/openeui.conf << EOF
-#[program:openeui]
-#priority=20
-#directory=/OpeneUI
-#command=gulp all-modules local
-#user=root
-#autostart=true
-#autorestart=true
-#EOF
