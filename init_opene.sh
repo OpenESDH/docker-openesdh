@@ -44,9 +44,11 @@ openesdh.classification.kle.syncOnStartupIfMissing=false
 openesdh.classification.kle.emneplan.url=http://www.klxml.dk/download/XML-ver2-0/KLE-Emneplan_Version2-0.xml
 EOF
 
-#npm install
-#bower update --allow-root | xargs echo
-#gulp all-modules-install
+git clone https://github.com/OpenESDH/OpenESDH-UI.git /OpeneUI
+cd /OpeneUI
+npm install
+bower update --allow-root | xargs echo
+gulp all-modules-install
 
 #cat > /etc/supervisor/conf.d/openeui.conf << EOF
 #[program:openeui]
