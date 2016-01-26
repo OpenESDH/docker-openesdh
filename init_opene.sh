@@ -57,7 +57,7 @@ a2enmod proxy_balancer
 a2enmod proxy_connect
 
 #KLE properties
-cat > /alfresco/tomcat/shared/classes/alfresco-global.properties << EOF
+cat >> /alfresco/tomcat/shared/classes/alfresco-global.properties << EOF
 # This specifies some reasonable defaults for a production setup of OpenESDH
 # Change as needed.
 
