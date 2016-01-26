@@ -29,4 +29,4 @@ RUN ./init_opene.sh
 #COPY kle.properties /tmp/
 #RUN cat /tmp/kle.properties >> /alfresco/tomcat/shared/classes/alfresco-global.properties
 
-#CMD /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n
+CMD /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n
