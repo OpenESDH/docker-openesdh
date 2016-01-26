@@ -55,6 +55,11 @@ gulp all-modules-install
 
 update-rc.d apache2 defaults
 
+cat > /etc/supervisor/conf.d/apache2.conf << EOF
+[program:apache2]
+command=/bin/bash -c "/etc/init.d/apache2 start"
+EOF
+
 #cat > /etc/supervisor/conf.d/openeui.conf << EOF
 #[program:openeui]
 #priority=20
