@@ -45,6 +45,7 @@ openesdh.classification.kle.emneplan.url=http://www.klxml.dk/download/XML-ver2-0
 EOF
 
 cd /OpeneUI
+rm -fr *
 rm -f *.*
 git clone https://github.com/OpenESDH/OpenESDH-UI.git .
 
