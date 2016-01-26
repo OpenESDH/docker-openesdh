@@ -3,6 +3,23 @@ cp /alfresco/tomcat/webapps/alfresco.war /alfresco/tomcat/webapps/alfresco.war_b
 mkdir -p /tmp/opene_updates/opene_repo
 mkdir -p /tmp/opene_updates/opene_ui
 
+cat > /tmp/opene_updates/opene_ui/update_openeui.sh << EOF
+cd /OpeneUI
+npm install
+bower update --allow-root | xargs echo
+gulp all-modules-install
+gulp all-modules build
+EOF
+
+chmod 755 /tmp/opene_updates/opene_ui/update_openeui.sh
+
+cd /OpeneUI
+rm -fr *
+rm -f *.*
+git clone https://github.com/OpenESDH/OpenESDH-UI.git .
+
+/tmp/opene_updates/opene_ui/update_openeui.sh
+
 apt-get update
 apt-get install --yes apache2
 
@@ -43,17 +60,6 @@ openesdh.classification.kle.syncOnStartupIfMissing=false
 # KLE emneplan XML file URL
 openesdh.classification.kle.emneplan.url=http://www.klxml.dk/download/XML-ver2-0/KLE-Emneplan_Version2-0.xml
 EOF
-
-cd /OpeneUI
-rm -fr *
-rm -f *.*
-git clone https://github.com/OpenESDH/OpenESDH-UI.git .
-
-npm install
-bower update --allow-root | xargs echo
-gulp all-modules-install
-
-update-rc.d apache2 defaults
 
 cat > /etc/supervisor/conf.d/apache2.conf << EOF
 [program:apache2]
