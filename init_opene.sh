@@ -44,8 +44,10 @@ openesdh.classification.kle.syncOnStartupIfMissing=false
 openesdh.classification.kle.emneplan.url=http://www.klxml.dk/download/XML-ver2-0/KLE-Emneplan_Version2-0.xml
 EOF
 
-git clone https://github.com/OpenESDH/OpenESDH-UI.git /OpeneUI
 cd /OpeneUI
+rm -f *.*
+git clone https://github.com/OpenESDH/OpenESDH-UI.git .
+
 npm install
 bower update --allow-root | xargs echo
 gulp all-modules-install
