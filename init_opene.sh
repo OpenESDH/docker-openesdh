@@ -53,6 +53,8 @@ npm install
 bower update --allow-root | xargs echo
 gulp all-modules-install
 
+update-rc.d apache2 defaults
+
 #cat > /etc/supervisor/conf.d/openeui.conf << EOF
 #[program:openeui]
 #priority=20
