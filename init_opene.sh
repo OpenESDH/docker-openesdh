@@ -91,7 +91,7 @@ then
     rm -rf \$CATALINA_HOME/webapps/alfresco
     rm -f \$CATALINA_HOME/webapps/alfresco.war
     cp \$CATALINA_HOME/webapps/alfresco.war_bak \$CATALINA_HOME/webapps/alfresco.war
-    REPO_AMP=`find openesdh-repo*.amp`
+    REPO_AMP=\`find openesdh-repo*.amp\`
     \$JAVA_HOME/bin/java -jar \$ALF_HOME/bin/alfresco-mmt.jar install "\$REPO_AMP" "\$CATALINA_HOME/webapps/alfresco.war" -nobackup -force
     rm -f \$REPO_AMP
     \$JAVA_HOME/bin/java -jar \$ALF_HOME/bin/alfresco-mmt.jar install "/tmp/opene_updates/opene_repo" "\$CATALINA_HOME/webapps/alfresco.war" -directory -nobackup -force
