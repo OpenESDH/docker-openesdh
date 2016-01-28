@@ -6,7 +6,7 @@ mkdir -p /tmp/opene_updates/opene_ui
 cat > /tmp/opene_updates/opene_ui/update_openeui.sh << EOF
 cd /OpeneUI
 git pull https://github.com/OpenESDH/OpenESDH-UI.git
-npm install
+#npm install
 bower update --allow-root | xargs echo
 gulp all-modules-install
 gulp all-modules build
@@ -18,7 +18,7 @@ cd /OpeneUI
 rm -fr *
 rm -f *.*
 git clone https://github.com/OpenESDH/OpenESDH-UI.git .
-
+npm install
 /tmp/opene_updates/opene_ui/update_openeui.sh
 
 apt-get update
@@ -79,3 +79,32 @@ cat > /etc/supervisor/conf.d/apache2.conf << EOF
 [program:apache2]
 command=/bin/bash -c "/etc/init.d/apache2 start"
 EOF
+
+cat > /tmp/opene_updates/opene_repo/update_repo.sh << EOF
+cd /tmp/opene_updates/opene_repo
+if [ -f openesdh-repo-*.amp ]
+then
+supervisorctl stop alfresco
+    ALF_HOME=/alfresco
+    CATALINA_HOME=/alfresco/tomcat
+    JAVA_HOME=/alfresco/java
+    rm -rf $CATALINA_HOME/webapps/alfresco
+    rm -f $CATALINA_HOME/webapps/alfresco.war
+    cp $CATALINA_HOME/webapps/alfresco.war_bak $CATALINA_HOME/webapps/alfresco.war
+    REPO_AMP=`find openesdh-repo*.amp`
+    $JAVA_HOME/bin/java -jar $ALF_HOME/bin/alfresco-mmt.jar install "$REPO_AMP" "$CATALINA_HOME/webapps/alfresco.war" -nobackup -force
+    rm -f $REPO_AMP
+    $JAVA_HOME/bin/java -jar $ALF_HOME/bin/alfresco-mmt.jar install "/tmp/opene_updates/opene_repo" "$CATALINA_HOME/webapps/alfresco.war" -directory -nobackup -$
+    rm -f *.amp
+
+    rm -rf $CATALINA_HOME/webapps/addo_webapp
+    rm -f $CATALINA_HOME/webapps/addo_webapp.war
+    cp ./addo*.war $CATALINA_HOME/webapps/addo_webapp.war
+    rm -f addo*.war
+    supervisorctl start alfresco
+else
+echo "No update files."
+fi
+
+EOF
+chmod 755 /tmp/opene_updates/opene_repo/update_repo.sh
