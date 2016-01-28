@@ -86,7 +86,7 @@ if [ -f openesdh-repo-*.amp ]
 then
     supervisorctl stop alfresco
     javapid=\`pidof java\`
-    kill -9 $javapid
+    kill -9 \$javapid
     ALF_HOME=/alfresco
     CATALINA_HOME=/alfresco/tomcat
     JAVA_HOME=/alfresco/java
