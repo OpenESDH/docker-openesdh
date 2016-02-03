@@ -80,6 +80,10 @@ cat > /etc/supervisor/conf.d/apache2.conf << EOF
 command=/bin/bash -c "/etc/init.d/apache2 start"
 EOF
 
+cat >> /alfresco/tomcat/bin/setenv.sh << EOF
+export CATALINA_OPTS="-Dhttps.protocols=TLSv1,SSLv3,SSLv2Hello"
+EOF
+
 cat > /tmp/opene_updates/opene_repo/update_repo.sh << EOF
 cd /tmp/opene_updates/opene_repo
 if [ -f openesdh-repo-*.amp ]
@@ -110,3 +114,5 @@ fi
 
 EOF
 chmod 755 /tmp/opene_updates/opene_repo/update_repo.sh
+
+apt-get install --yes mc
