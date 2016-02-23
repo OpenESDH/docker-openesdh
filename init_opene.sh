@@ -5,11 +5,12 @@ mkdir -p /tmp/opene_updates/opene_ui
 
 cat > /tmp/opene_updates/opene_ui/update_openeui.sh << EOF
 cd /OpeneUI
-git pull https://github.com/OpenESDH/OpenESDH-UI.git
+call git pull https://github.com/OpenESDH/OpenESDH-UI.git
 #npm install
-bower update --allow-root | xargs echo
-gulp all-modules-install
-gulp all-modules build
+call bower update --allow-root | xargs echo
+call gulp all-modules-install
+call gulp --title="Visma case" --logo "./app/assets/images/VismaCase.svg" all-modules build
+copy /tmp/VismaCase.svg app/assets/images/VismaCase.svg
 EOF
 
 chmod 755 /tmp/opene_updates/opene_ui/update_openeui.sh

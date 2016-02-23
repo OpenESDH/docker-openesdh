@@ -2,6 +2,9 @@ FROM opene/alfresco:5.0.d
 
 COPY init_opene.sh /tmp/init_opene.sh
 RUN chmod 755 /tmp/init_opene.sh
+
+COPY VismaCase.svg /tmp/VismaCase.svg
+
 WORKDIR /tmp
 RUN ./init_opene.sh
 
