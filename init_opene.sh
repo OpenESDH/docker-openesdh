@@ -74,6 +74,20 @@ openesdh.classification.kle.syncOnStartupIfMissing=false
 
 # KLE emneplan XML file URL
 openesdh.classification.kle.emneplan.url=http://www.klxml.dk/download/XML-ver2-0/KLE-Emneplan_Version2-0.xml
+
+# Notification and invitation mails settings
+notification.email.siteinvite=true
+#mail.host=smtp.gmail.com
+#mail.username=vismacase@gmail.com
+#mail.password=openesdh
+#mail.port=587
+#mail.smtp.starttls.enable=true
+
+# The following share properties are used for notification and invitation emails to provide links to OpeneUI
+share.protocol=http
+share.host=10.170.12.125
+share.port=80
+share.context=
 EOF
 
 cat > /etc/supervisor/conf.d/apache2.conf << EOF
