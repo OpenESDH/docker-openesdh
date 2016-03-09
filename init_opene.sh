@@ -6,7 +6,7 @@ mkdir -p /tmp/opene_updates/opene_ui
 cat > /tmp/opene_updates/opene_ui/update_openeui.sh << EOF
 cd /OpeneUI
 pwd
-git pull https://github.com/OpenESDH/OpenESDH-UI.git /OpeneUI
+git pull https://github.com/OpenESDH/OpenESDH-UI.git
 cp /tmp/VismaCase.svg /OpeneUI/app/assets/images/VismaCase.svg
 #npm install
 bower update --allow-root | xargs echo
