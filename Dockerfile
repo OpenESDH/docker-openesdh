@@ -11,4 +11,5 @@ COPY VismaCase.svg /tmp/VismaCase.svg
 WORKDIR /tmp
 RUN ./init_opene.sh
 
+WORKDIR /OpeneUI
 CMD /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n
