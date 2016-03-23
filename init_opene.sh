@@ -1,3 +1,6 @@
+# Install alfresco.google.docs to alfresco.war first
+wget https://artifacts.alfresco.com/nexus/service/local/repositories/releases/content/org/alfresco/integrations/alfresco-googledocs-repo/3.0.2/alfresco-googledocs-repo-3.0.2.amp
+/alfresco/java/bin/java -jar /alfresco/bin/alfresco-mmt.jar install alfresco-googledocs-repo-3.0.2.amp /alfresco/tomcat/webapps/alfresco.war -nobackup -force
 
 cp /alfresco/tomcat/webapps/alfresco.war /alfresco/tomcat/webapps/alfresco.war_bak
 mkdir -p /tmp/opene_updates/opene_repo
@@ -113,8 +116,6 @@ then
     rm -rf \$CATALINA_HOME/webapps/alfresco
     rm -f \$CATALINA_HOME/webapps/alfresco.war
     cp \$CATALINA_HOME/webapps/alfresco.war_bak \$CATALINA_HOME/webapps/alfresco.war
-	REPO_AMP=\`find alfresco-googledocs-repo*.amp\`
-    \$JAVA_HOME/bin/java -jar \$ALF_HOME/bin/alfresco-mmt.jar install "\$REPO_AMP" "\$CATALINA_HOME/webapps/alfresco.war" -nobackup -force
 	REPO_AMP=\`find openesdh-repo*.amp\`
     \$JAVA_HOME/bin/java -jar \$ALF_HOME/bin/alfresco-mmt.jar install "\$REPO_AMP" "\$CATALINA_HOME/webapps/alfresco.war" -nobackup -force
     rm -f \$REPO_AMP
