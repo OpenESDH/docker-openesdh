@@ -116,7 +116,18 @@ then
     rm -rf \$CATALINA_HOME/webapps/alfresco
     rm -f \$CATALINA_HOME/webapps/alfresco.war
     cp \$CATALINA_HOME/webapps/alfresco.war_bak \$CATALINA_HOME/webapps/alfresco.war
-	REPO_AMP=\`find openesdh-repo*.amp\`
+    REPO_AMP=\`find openesdh-repo*.amp\`
+	
+    echo "Making Alfresco pathes..."
+    unzip -j "\$REPO_AMP" "lib/openesdh-repo.jar"
+    unzip -j "openesdh-repo.jar" "org/alfresco/web/app/servlet/WebscriptCookieAuthenticationFilter.class"
+    mkdir -p WEB-INF/classes/org/alfresco/web/app/servlet
+    mv WebscriptCookieAuthenticationFilter.class WEB-INF/classes/org/alfresco/web/app/servlet
+    zip -g \$CATALINA_HOME/webapps/alfresco.war "WEB-INF/classes/org/alfresco/web/app/servlet/WebscriptCookieAuthenticationFilter.class"
+    rm -rf WEB-INF
+    rm -f openesdh-repo.jar
+    echo "Done."
+	
     \$JAVA_HOME/bin/java -jar \$ALF_HOME/bin/alfresco-mmt.jar install "\$REPO_AMP" "\$CATALINA_HOME/webapps/alfresco.war" -nobackup -force
     rm -f \$REPO_AMP
     \$JAVA_HOME/bin/java -jar \$ALF_HOME/bin/alfresco-mmt.jar install "/tmp/opene_updates/opene_repo" "\$CATALINA_HOME/webapps/alfresco.war" -directory -nobackup -force
@@ -134,4 +145,4 @@ fi
 EOF
 chmod 755 /tmp/opene_updates/opene_repo/update_repo.sh
 
-apt-get install --yes mc
+apt-get install --yes mc zip
